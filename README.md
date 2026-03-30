@@ -71,21 +71,54 @@ You need to add a few lines to Claude's config file so it knows how to connect.
 http://localhost:9999/mcp
 ```
 
-### Step 3 — Restart Claude and test
+### Step 3 — Give Claude the skill files (important!)
 
-Restart Claude Desktop (or start a new chat). Then ask Claude something like:
+Without this step, Claude can connect to Unity but won't know the best way to use the tools — property paths, workarounds, testing patterns, etc. The skill files teach Claude everything.
+
+**For Claude Desktop / Cowork:**
+
+Copy `SKILL.md` and `WORKFLOW.md` into your Claude skills folder:
+
+```bash
+# macOS
+mkdir -p ~/.claude/skills/unity-x-claude
+cp SKILL.md WORKFLOW.md ~/.claude/skills/unity-x-claude/
+```
+
+```bash
+# Windows (PowerShell)
+mkdir -Force "$env:USERPROFILE\.claude\skills\unity-x-claude"
+copy SKILL.md, WORKFLOW.md "$env:USERPROFILE\.claude\skills\unity-x-claude\"
+```
+
+**For Claude Code / Cursor:**
+
+Copy them into your project's `.claude/skills/` folder:
+
+```bash
+mkdir -p YourProject/.claude/skills/unity-x-claude
+cp SKILL.md WORKFLOW.md YourProject/.claude/skills/unity-x-claude/
+```
+
+> **What do these files do?**
+> - **SKILL.md** — Teaches Claude all 20 tools, common workflows, property paths for every component, and how to batch operations efficiently
+> - **WORKFLOW.md** — Teaches Claude the setup architecture, known gotchas with workarounds, how to test with screenshots during Play mode, and how to handle domain reloads
+
+### Step 4 — Restart Claude and test
+
+Restart Claude Desktop (or start a new chat). Then try asking:
 
 - *"What's in my Unity scene?"*
 - *"Create a red cube at position 0, 3, 0"*
 - *"Add a Rigidbody to the player"*
 
-If Claude responds with your scene data, you're connected. That's it!
+If Claude responds with your scene data, you're connected and ready to go!
 
 ---
 
 ## What can Claude do?
 
-Once connected, Claude has **20 tools** to control Unity. Here's what you can ask for:
+Once set up, Claude has **20 tools** to control Unity. Here's what you can ask for:
 
 ### 🎮 Scene & Objects
 - Create, delete, duplicate GameObjects
@@ -121,22 +154,12 @@ Once connected, Claude has **20 tools** to control Unity. Here's what you can as
 
 ---
 
-## Docs for Power Users
+## Full Documentation
 
 | Guide | What's in it |
 |-------|-------------|
 | **[SKILL.md](SKILL.md)** | Tool reference, common workflows, property path cheatsheet, depth strategy tips |
 | **[WORKFLOW.md](WORKFLOW.md)** | Architecture deep-dive, known gotchas + workarounds, runtime testing pipeline, screenshot verification, domain reload handling |
-
-### Use as a Claude Skill
-
-For the best experience, copy `SKILL.md` into your Claude skills folder:
-
-```
-~/.claude/skills/unity-x-claude/SKILL.md
-```
-
-This gives Claude permanent access to the full tool reference, so it always knows exactly how to use every tool without you having to explain.
 
 ---
 
